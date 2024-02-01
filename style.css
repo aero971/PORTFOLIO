@@ -179,8 +179,8 @@ section{
     background-position: 0 0;
     transition: .6s;
     letter-spacing: 2px;
-    animation: moveText 3s linear infinite;
-    animation-delay: 2s;
+    /* animation: moveText 3s linear infinite;
+    animation-delay: 2s; */
 }
 
 .text-animate h2::before{
@@ -190,9 +190,9 @@ section{
     left: -3px;
     width: 0;
     height: 70%;
-    border-right: 2px solid var(--main-color);
-    animation: moveCursorText 3s linear infinite;
-    animation-delay: 2s;
+    /* border-right: 2px solid var(--main-color); */
+    /* animation: moveCursorText 3s linear infinite;
+    animation-delay: 2s; */
 }
 
 

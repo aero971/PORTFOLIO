@@ -186,43 +186,32 @@ ScrollReveal().reveal('.about-content,.skills', { origin: "right" });
 ScrollReveal().reveal('.allServices,.portfolio-gallery,.blog-box,footer,.img-hero', { origin: "bottom" });
 
 //-----------------------------------------------------------------------------------------------------------------------------
-// Define the words to be displayed
-const words = [ "Python Developer", "Data Analyst", "Web developer"];
-let cursorIndex = 1; // Cursor animation index
 
-// Function to initialize the typewriter effect
-function typeWriterEffect() {
-    const word = words[cursorIndex % words.length];
-    const speed = word === "developer" ? 75 : 25; // Faster typing speed for "developer" word
-    let i = 0;
-    const typeWriterInterval = setInterval(() => {
-        if (i < word.length) {
-            document.querySelector('.text-animate h2').textContent += word.charAt(i);
-            i++;
-        } else {
-            clearInterval(typeWriterInterval);
-            setTimeout(eraseWord, 1000); // Wait for 1 second before erasing
-        }
-    }, speed);
+const dynamicText = document.querySelector("h2 span");
+const words = ["Python", "AI & ML", "Frontend", "Java"];
+// Variables to track the position and deletion status of the word
+let wordIndex = 0;
+let charIndex = 0;
+let isDeleting = false;
+const typeEffect = () => {
+    const currentWord = words[wordIndex];
+    const currentChar = currentWord.substring(0, charIndex);
+    dynamicText.textContent = currentChar;
+    dynamicText.classList.add("stop-blinking");
+    if (!isDeleting && charIndex < currentWord.length) {
+        // If condition is true, type the next character
+        charIndex++;
+        setTimeout(typeEffect, 200);
+    } else if (isDeleting && charIndex > 0) {
+        // If condition is true, remove the previous character
+        charIndex--;
+        setTimeout(typeEffect, 100);
+    } else {
+        // If word is deleted then switch to the next word
+        isDeleting = !isDeleting;
+        dynamicText.classList.remove("stop-blinking");
+        wordIndex = !isDeleting ? (wordIndex + 1) % words.length : wordIndex;
+        setTimeout(typeEffect, 1200);
+    }
 }
-
-// Function to erase the word
-function eraseWord() {
-    const word = words[cursorIndex % words.length];
-    const speed = 25; // Faster erase speed
-    let i = word.length - 1;
-    const eraseInterval = setInterval(() => {
-        if (i >= 0) {
-            const newText = word.substring(0, i);
-            document.querySelector('.text-animate h2').textContent = newText;
-            i--;
-        } else {
-            clearInterval(eraseInterval);
-            cursorIndex++;
-            setTimeout(typeWriterEffect, 500); // Wait for 0.5 seconds before typing next word
-        }
-    }, speed);
-}
-
-// Initial call to start the typewriter effect
-typeWriterEffect();
+typeEffect();
