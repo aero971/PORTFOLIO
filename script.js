@@ -205,13 +205,13 @@ const typeEffect = () => {
     } else if (isDeleting && charIndex > 0) {
         // If condition is true, remove the previous character
         charIndex--;
-        setTimeout(typeEffect, 100);
+        setTimeout(typeEffect, 50);
     } else {
         // If word is deleted then switch to the next word
         isDeleting = !isDeleting;
         dynamicText.classList.remove("stop-blinking");
         wordIndex = !isDeleting ? (wordIndex + 1) % words.length : wordIndex;
-        setTimeout(typeEffect, 1200);
+        setTimeout(typeEffect, 300);
     }
 }
 typeEffect();
